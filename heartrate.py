@@ -34,8 +34,6 @@ while(cap.isOpened()):
 
 n=2**int(np.log2(k))
 
-
-
 cap.release()
 
 #n = 1024
@@ -44,28 +42,23 @@ f = np.linspace(-n/2,n/2-1,n)*fps/n
 r = r[0,0:n]-np.mean(r[0,0:n])
 g = g[0,0:n]-np.mean(g[0,0:n])
 b = b[0,0:n]-np.mean(b[0,0:n])
-#
 
 # R = np.abs(np.fft.fftshift(np.fft.fft(r)))**2
 # G = np.abs(np.fft.fftshift(np.fft.fft(g)))**2
 # B = np.abs(np.fft.fftshift(np.fft.fft(b)))**2
 
-
 R = np.abs(np.fft.fftshift(lib_fourier.cooley_fft(r)))**2
 G = np.abs(np.fft.fftshift(lib_fourier.cooley_fft(g)))**2
 B = np.abs(np.fft.fftshift(lib_fourier.cooley_fft(b)))**2
 
-
-
-plt.plot(60*f,R)
+plt.plot(60*f,R,'r')
 plt.xlim(0,200)
 
-
-plt.plot(60*f,G)
+plt.plot(60*f,G,'g')
 plt.xlim(0,200)
 plt.xlabel("frecuencia [1/minuto]")
 
-plt.plot(60*f,B)
+plt.plot(60*f,B,'b')
 plt.xlim(0,200)
 plt.show()
 
