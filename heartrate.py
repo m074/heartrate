@@ -96,7 +96,7 @@ if (__name__ == "__main__"):
 
     for x in range(3):
         for y in range(3):
-            f,R,G,B,r,g,b=parte(archivo,[x,y])
+            f,R,G,B,r,g,b=byPartitions(archivo,[x,y])
             plt.plot(60*f,  B)
             print("Frecuencia cardíaca: ", abs(f[np.argmax(B)]) * 60, "AZUL ppm en",[x,y])
     plt.xlim(0, 200)
