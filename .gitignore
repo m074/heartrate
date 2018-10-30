@@ -1,0 +1,9 @@
+venv/
+video/
+.vscode/
+*.pyc
+octave-workspace
+*.pkl
+*.mp4
+.idea
+vcs.xml
