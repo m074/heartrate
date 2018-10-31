@@ -27,9 +27,9 @@ while(cap.isOpened()):
     ret, frame = cap.read()
     if ret==False:
         break
-    r[0,k] = np.mean(frame[posX:posX+pix,posY:posY+pix,0])
+    r[0,k] = np.mean(frame[posX:posX+pix,posY:posY+pix,2])
     g[0,k] = np.mean(frame[posX:posX+pix,posY:posY+pix,1])
-    b[0,k] = np.mean(frame[posX:posX+pix,posY:posY+pix,2])
+    b[0,k] = np.mean(frame[posX:posX+pix,posY:posY+pix,0])
     k = k + 1
 
 n=2**int(np.log2(k))
