@@ -2,8 +2,13 @@ import numpy as np
 import matplotlib.pyplot as plt
 import cv2
 import lib_fourier
+import json
+from scipy.signal import butter, filtfilt
 
-cap = cv2.VideoCapture('ota.mp4')
+with open('config.json') as f:
+            config = json.load(f)
+
+cap = cv2.VideoCapture(config["file"])
 
 if not cap.isOpened():
    print("No lo pude abrir")
