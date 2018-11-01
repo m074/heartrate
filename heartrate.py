@@ -33,7 +33,6 @@ while(cap.isOpened()):
     ret, frame = cap.read()
     if ret==False:
         break
-    print(frame[0,0])
     if posX>np.shape(frame)[0]:
         raise Exception("invalid posX")
     if posX > np.shape(frame)[1]:
@@ -67,17 +66,11 @@ if config["filter"]:
     g = filtfilt(b_, a_, g)
     b = filtfilt(b_, a_, b)
     gr = filtfilt(b_,a_,gr)
-#
-# R = np.abs(np.fft.fftshift(lib_fourier.cooley_fft(r)))**2
-# G = np.abs(np.fft.fftshift(lib_fourier.cooley_fft(g)))**2
-# B = np.abs(np.fft.fftshift(lib_fourier.cooley_fft(b)))**2
 
-
-
-R = np.abs(lib_fourier.cooley_fft(np.fft.fft(r)))**2
-G = np.abs(lib_fourier.cooley_fft(np.fft.fft(g)))**2
-B = np.abs(lib_fourier.cooley_fft(np.fft.fft(b)))**2
-GR = np.abs(lib_fourier.cooley_fft(np.fft.fft(gr)))**2
+R = np.abs(np.fft.fftshift(lib_fourier.cooley_fft(r)))**2
+G = np.abs(np.fft.fftshift(lib_fourier.cooley_fft(g)))**2
+B = np.abs(np.fft.fftshift(lib_fourier.cooley_fft(b)))**2
+GR = np.abs(np.fft.fftshift(lib_fourier.cooley_fft(gr)))**2
 
 plt.plot(60*f,R,'r')
 plt.xlim(0,200)
@@ -102,4 +95,3 @@ print("Frecuencia cardíaca: ", abs(f[np.argmax(G)])*60, "green pulsaciones por 
 print("Frecuencia cardíaca: ", abs(f[np.argmax(B)])*60, "blue pulsaciones por minuto")
 print("Frecuencia cardíaca: ", abs(f[np.argmax(GR)])*60, "gray pulsaciones por minuto")
 
-print("Creo que este es el correcto...",abs(f[max(np.argmax(R),np.argmax(B),np.argmax(G))])*60)
