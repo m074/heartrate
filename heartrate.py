@@ -23,9 +23,9 @@ r = np.zeros((1,length))
 g = np.zeros((1,length))
 b = np.zeros((1,length))
 
-posX=500
-posY=500
-pix=30
+posX=int(config["posX"])
+posY=int(config["posY"])
+pix=int(config["size"])
 
 k = 0
 while(cap.isOpened()):
@@ -48,13 +48,18 @@ r = r[0,0:n]-np.mean(r[0,0:n])
 g = g[0,0:n]-np.mean(g[0,0:n])
 b = b[0,0:n]-np.mean(b[0,0:n])
 
-# R = np.abs(np.fft.fftshift(np.fft.fft(r)))**2
-# G = np.abs(np.fft.fftshift(np.fft.fft(g)))**2
-# B = np.abs(np.fft.fftshift(np.fft.fft(b)))**2
+minBpm, maxBpm = 40, 220
+if config["filter"]:
+    frec = [2 * (minBpm / 60) / fps, 2 * (maxBpm / 60) / fps]
+    b_, a_ = butter(2, frec, btype='bandpass')
+    r = filtfilt(b_, a_, r)
+    g = filtfilt(b_, a_, g)
+    b = filtfilt(b_, a_, b)
 
 R = np.abs(np.fft.fftshift(lib_fourier.cooley_fft(r)))**2
 G = np.abs(np.fft.fftshift(lib_fourier.cooley_fft(g)))**2
 B = np.abs(np.fft.fftshift(lib_fourier.cooley_fft(b)))**2
+
 
 plt.plot(60*f,R,'r')
 plt.xlim(0,200)
